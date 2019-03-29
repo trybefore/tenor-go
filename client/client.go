@@ -21,8 +21,7 @@ const (
 	RegisterShareEndpoint    Endpoint = "registershare"
 	GIFSEndpoint             Endpoint = "gifs"
 	RandomEndpoint           Endpoint = "random"
-
-	tenorURL = "https://api.tenor.com/v1/%s?key=%s&"
+	tenorURL                          = "https://api.tenor.com/v1/%s?key=%s&"
 )
 
 // TenorClient client holding
@@ -67,16 +66,18 @@ func (t *TenorClient) search(endpoint Endpoint, query map[string]interface{}) *T
 func (t *TenorClient) formURL(endpoint Endpoint, query map[string]interface{}) string {
 	u := fmt.Sprintf(tenorURL, string(endpoint), t.apiKey)
 
-	queries := make([]string, len(query))
+	queries := []string{}
 
 	for k, v := range query {
-		queries = append(queries, fmt.Sprintf("%s=%v", k, v))
+		value := formatQuery(fmt.Sprintf("%v", v))
+		queries = append(queries, fmt.Sprintf("%s=%v", formatQuery(k), value))
 	}
 
-	q := formatQuery(strings.Join(queries, "&"))
+	q := strings.Join(queries, "&")
 
 	u = u + q
 
+	fmt.Println(u)
 	return u
 }
 
