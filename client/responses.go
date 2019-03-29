@@ -1,4 +1,4 @@
-package main
+package client
 
 // TenorResponse the response from a tenor query.
 type TenorResponse struct {
