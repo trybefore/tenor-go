@@ -77,7 +77,6 @@ func (t *TenorClient) formURL(endpoint Endpoint, query map[string]interface{}) s
 
 	u = u + q
 
-	fmt.Println(u)
 	return u
 }
 
